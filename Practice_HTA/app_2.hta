@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>A Simple HTA Application</title> 
+    <HTA:APPLICATION
+        APPLICATIONNAME = "A Simple HTA setitimeout Application"
+		BORDERSTYLE = "Normal"
+		CAPTION = "No"
+		CONTEXTMENU = "No"
+		INNERBORDER = "No"
+		MAXIMIZEBUTTON = "No"
+		MINIMIZEBUTTON = "No"
+		NAVIGABLE = "No"
+		SCROLL = "No"
+		SCROLLFLAT = "No"
+		SELECTION = "No"
+		SHOWINTASKBAR = "No"
+		SINGLEINSTANCE = "Yes"
+		WIDTH="300"	
+    />	
+	<script language="VBScript">
+	Dim idTimer
+
+    Sub Window_Onload
+        idTimer = window.setTimeout("InstallSoftware", 5000, "VBScript")
+    End Sub
+
+    Sub InstallSoftware
+        window.clearTimeout(idTimer)
+        Msgbox "Installing software ..."
+    End Sub
+
+    Sub CancelInstall
+        window.clearTimeout(idTimer)
+        Msgbox "Installation cancelled."
+    End Sub
+	</script>	
+</head>
+<body>
+
+
+	<input type="button" value="Install" onClick="InstallSoftware">
+    <input type="button" value="Cancel" onClick="CancelInstall">
+	<!--
+	Sub myfunction()
+			MsgBox "khokon sarker"
+			setTimeout "myfunction()",2000
+		End Sub
+	-->
+</body>
+</html>

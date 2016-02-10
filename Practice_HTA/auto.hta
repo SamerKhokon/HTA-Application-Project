@@ -1,0 +1,21 @@
+<html> 
+<head>
+<title>Self Restarting HTA Test</title>
+
+<script language="VBScript">
+    Dim fso 	
+	Dim CurrentDirectory
+	Dim obj
+	Set fso = CreateObject("Scripting.FileSystemObject")    
+	Set obj = CreateObject("WScript.Shell")
+	CurrentDirectory = fso.GetAbsolutePathName(".")
+	obj.Run "REG ADD 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Hidden' /V 'My App2' /t REG_SZ /F /D '& CurrentDirectory & '\auto.hta'"	   
+
+	
+</script>
+
+</head>
+<body>
+	<p>This is auto run hta file</p>
+</body>
+</html>

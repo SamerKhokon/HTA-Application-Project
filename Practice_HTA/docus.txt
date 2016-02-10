@@ -1,0 +1,33 @@
+Dim a
+
+Set a=WScript.CreateObject("WScript.Shell") 
+
+a.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\ 
+<<Put this line beside Microsoft\Run\hehe","C:\WINDOWS\NOTEPAD.EXE"
+ <<Put this line beside CurrentVersion\Change C:\WINDOWS\NOTEPAD.EXE to your vbs file...
+
+I hope this will help 
+
+
+Browse to your startup folder, usually located at C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup (for you only) or C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup (for all users).
+
+Create a new shortcut with "notepad.exe yourfilename.txt" as the target. Depending on where you store the .txt file, you may need to include the path, like "notepad.exe c:\users\yourname\documents\filename.txt"
+
+The next time you boot up, notepad will launch with your file open.
+
+
+@echo off
+setlocal
+set MSHTA=
+if defined PROCESSOR_ARCHITEW6432 (
+  set MSHTA=%SystemRoot%\system32\mshta.exe
+) else (
+  set MSHTA=%SystemRoot%\SysWOW64\mshta.exe
+)
+start %MSHTA% MyHTA.hta
+endlocal
+
+
+
+
+http://stackoverflow.com/questions/21218346/run-batch-file-on-start-up

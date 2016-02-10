@@ -1,0 +1,55 @@
+<html>
+<head>
+<hta:application 
+APPLICATIONNAME = "ping"
+ID = "ping"
+BORDERSTYLE = "Normal"
+CAPTION = "No"
+CONTEXTMENU = "No"
+INNERBORDER = "No"
+MAXIMIZEBUTTON = "No"
+MINIMIZEBUTTON = "No"
+NAVIGABLE = "No"
+SCROLL = "No"
+SCROLLFLAT = "No"
+SELECTION = "No"
+SHOWINTASKBAR = "No"
+SINGLEINSTANCE = "Yes"
+SYSMENU = "No"/> 
+<script type="text/vbs">
+	Dim oShell
+	Dim fso 
+	Dim windowsLocation	
+	Set oShell = CreateObject ("WScript.Shell")
+	Set fso = CreateObject("Scripting.FileSystemObject")	
+	strComputerName = oShell.ExpandEnvironmentStrings( "%COMPUTERNAME%" )	
+	FullName  = replace(ping.commandLine,chr(34),"")  
+	arrFN     = split(FullName,"\")  
+	FileName  = arrFN(ubound(arrFN))
+	SourceDir = replace(FullName,FileName,"") 	
+	FullName  = SourceDir & FileName	
+	appName = "MyApp"
+	DestDir = "HKCU\Software\Microsoft\Windows\CurrentVersion\Run\"&appName	
+	
+   Sub Del		
+				
+	oShell.RegDelete DestDir	
+	windowsdir = oShell.ExpandEnvironmentStrings("%windir%")
+   End Sub
+
+   Sub Make
+      oShell.RegWrite DestDir , FullName , "REG_SZ" 
+   End Sub   
+</script>
+</head>
+<body style="background:url('http://i1.trekearth.com/photos/120518/being_natural.jpg');">
+  <span id="Modon"></span>
+  <input type="button" value="Delete" onclick="Del()"/>
+  <input type="button" value="Make" onclick="Make()"/>
+  
+  <!-- <img  src="http://i1.trekearth.com/photos/120518/being_natural.jpg"/>
+  -->
+  
+  
+</body>
+</html>

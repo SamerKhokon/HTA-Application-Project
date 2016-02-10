@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>A Simple HTA Application</title> 
+    <HTA:APPLICATION
+        APPLICATIONNAME = "A Simple HTA Application"
+		BORDERSTYLE = "Normal"
+		CAPTION = "No"
+		CONTEXTMENU = "No"
+		INNERBORDER = "No"
+		MAXIMIZEBUTTON = "No"
+		MINIMIZEBUTTON = "No"
+		NAVIGABLE = "No"
+		SCROLL = "No"
+		SCROLLFLAT = "No"
+		SELECTION = "No"
+		SHOWINTASKBAR = "No"
+		SINGLEINSTANCE = "Yes"
+		WIDTH="300"	
+    />
+	
+	<script type='text/vbscript'>
+	
+	Dim idTimer
+		
+	Sub RefreshRate()	
+		MsgBox "hi"	
+	End Sub
+	    
+	RefreshRate()
+	
+	
+	Sub Window_onload()
+		
+	End Sub
+	
+	Sub test()
+		MsgBox "test function"
+		self.close()
+		Window_onload()
+	End Sub
+	
+	
+	</script>
+
+</head> 
+<body style="background:url('Sunny_Leone.jpg')">
+    <h1>Heading</h1>
+    <p>This is a paragraph.</p>
+	<a href="https://www.google.com" target="_blank">Click Here!</a>
+	<input type="button" value="VBscript" onclick="test()"/>
+	<!--
+	<img src="Sunny_Leone.jpg"/>
+	  Me.ResizeTo 600,300
+      Me.MoveTo Screen.Width/2-300,Screen.Height/2-300
+	  Me.SetTimeout "Me.Close()",5000      
+	
+	-->
+	
+</body> 
+</html>

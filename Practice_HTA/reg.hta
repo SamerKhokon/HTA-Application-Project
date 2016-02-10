@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>RegTest</title>
+<script language="JavaScript">
+function writeInRegistry(sRegEntry, sRegValue)
+{
+  var regpath = "HKEY_LOCAL_MACHINE\\Software\\CompanyName\\CompanyValues\\" + sRegEntry;
+  var oWSS = new ActiveXObject("WScript.Shell");
+  oWSS.RegWrite(regpath, sRegValue, "REG_DWORD");
+}
+
+function readFromRegistry(sRegEntry)
+{
+  var regpath = "HKEY_LOCAL_MACHINE\\Software\\CompanyName\\CompanyValues\\" + sRegEntry;
+  var oWSS = new ActiveXObject("WScript.Shell");
+  return oWSS.RegRead(regpath);
+}
+
+function tst()
+{
+  writeInRegistry("Version", "101");
+  alert(readFromRegistry("Version"));
+}
+</script>
+</head>
+<body>
+Click here to run test: <input type="button" value="Run" onclick="tst()"
+</body>
+</html>

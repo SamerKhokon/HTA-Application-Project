@@ -1,0 +1,31 @@
+<html>
+<head>
+<hta:application 
+
+APPLICATIONNAME = "Program ALERT"
+ID = "Program ALERT"
+BORDERSTYLE = "Normal"
+CAPTION = "No"
+CONTEXTMENU = "No"
+INNERBORDER = "No"
+MAXIMIZEBUTTON = "No"
+MINIMIZEBUTTON = "No"
+NAVIGABLE = "No"
+SCROLL = "No"
+SCROLLFLAT = "No"
+SELECTION = "No"
+SHOWINTASKBAR = "No"
+SINGLEINSTANCE = "Yes"
+SYSMENU = "No"/> 
+<script language="VBScript">
+Sub RunFull
+	Set objShell = CreateObject("WScript.Shell")
+	ObjShell.Run "mshta x:\windows\system32\app_4.hta",1,True
+		On Error Resume Next
+	Set objShell = Nothing
+End Sub
+	RunFull
+</script>
+<body>
+</body>
+</html>

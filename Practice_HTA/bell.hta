@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="ie=8">
+<title>Bell Test</title>
+<script language="VBScript">
+Option Explicit
+Dim objWShell
+Set objWShell = CreateObject("WScript.Shell")
+Sub DoPing
+    divText.innerText = Now
+    objWShell.Run "%COMSPEC% /c ECHO " & Chr(7), 0, False
+    window.setTimeOut "DoPing", 2000
+End Sub
+Sub window_OnLoad
+   window.ResizeTo 240,130
+   DoPing
+End Sub
+</script>
+</head>
+<body>
+<div id="divText">TEST</div>
+</body>
+</html>

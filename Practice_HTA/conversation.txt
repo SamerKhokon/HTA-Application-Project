@@ -1,0 +1,9 @@
+[3:18:04 PM] তাবাতা: Yes .
+If this happens , after the re- start , 
+I want to also know whether authentication is 
+required if you want to display
+
+[3:18:21 PM] তাবাতা: better to remove the authentication 
+of the hta file is not hta any problem when it was easier
+
+Did you mean .exe file by changing all the file ?

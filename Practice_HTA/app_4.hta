@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Test HTA</title>
+<HTA:APPLICATION 
+     APPLICATIONNAME="Test HTA"
+     BORDER="thin"
+     SCROLL="yes"
+     SINGLEINSTANCE="no"
+     WINDOWSTATE="normal"
+>
+</head>
+
+<script language="VBScript">
+
+' Declare global variable outside the Subs
+Dim intMinutes
+Dim intSeconds
+
+Sub Window_onLoad
+      intWidth = 800
+      intHeight = 600
+      Me.ResizeTo intWidth, intHeight
+    Me.MoveTo ((Screen.Width / 2) - (intWidth / 2)),((Screen.Height / 2) - (intHeight / 2))
+      intMinutes = 1
+      intSeconds = 0
+      iTimerID = window.setInterval("CloseWindow", 1000)
+End Sub
+
+Sub CloseWindow
+      If intSeconds = 0 Then
+            If intMinutes = 0 Then
+msgbox "This message will repeat in another 10 seconds"
+            Else
+                  intMinutes = intMinutes - 1
+            End If
+            intSeconds = 10
+      Else
+            intSeconds = intSeconds - 1
+      End If
+      span_clock.innerHTML = intMinutes & ":" & Right("00" & intSeconds, 2)
+End Sub
+
+</script>
+
+<body STYLE="font:14 pt arial; color:white;filter:progid:DXImageTransform.Microsoft.Gradient
+(GradientType=1, StartColorStr='#000033', EndColorStr='#0000FF')">
+      <table width='90%' height = '100%' align='center' border='0'>
+            <tr>
+                  <td align="center" colspan="2">
+                        <h2>Test HTA</h2>
+                  </td>
+            </tr>
+            <tr>
+                  <td align='center'>
+                        <input type='button' value='Close' name='btnClose' id='btnClose' onClick='vbs:window.close'>
+                  </td>
+            </tr>
+            <tr>
+                  <td>
+                        <span id="span_clock">
+                              0:10
+                        </span>
+                  </td>
+            </tr>
+      </table>
+
+</body>
+</html>

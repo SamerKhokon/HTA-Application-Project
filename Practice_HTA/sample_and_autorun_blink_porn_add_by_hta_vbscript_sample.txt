@@ -1,0 +1,53 @@
+<html>
+<HTA:APPLICATION
+		ID="objHTA_Info"
+		APPLICATIONNAME="HTA_Info"  
+		ICON="shooter.ico"
+		BORDERSTYLE = "Normal"
+		CAPTION = "Yes"
+		CONTEXTMENU = "No"
+		INNERBORDER = "No"
+		MAXIMIZEBUTTON = "No"
+		MINIMIZEBUTTON = "No"
+		NAVIGABLE = "No"
+		SCROLL = "No"
+		SCROLLFLAT = "No"
+		SELECTION = "No"
+		SHOWINTASKBAR = "No"
+		SINGLEINSTANCE = "Yes"
+		WIDTH="300"
+		HEIGHT="400"
+    />	
+<SCRIPT Language="VBScript">
+    Dim intLeft
+    Dim intTop
+
+	FullName = replace(objHTA_Info.commandLine,chr(34),"")  
+	arrFN=split(FullName,"\")  
+	FileName = arrFN(ubound(arrFN))
+	SourceDir=replace(FullName,FileName,"") 	
+	FullName = SourceDir & FileName		
+	
+    Sub HideWindow
+        intLeft = window.screenLeft
+        intTop = window.screenTop
+        window.moveTo -2000,-2000
+		khokon.InnerHTML = "FileName:<br/>"&FullName	&"<br/> ,Source:"&SourceDir
+        idTimer = window.setTimeout("ShowWindow", 5000, "VBScript")
+    End Sub
+
+    Sub ShowWindow
+	
+        window.moveTo 100,100   
+		khokon.InnerHTML = "FileName:<br/>"&FullName	&"<br/>Source:"&SourceDir			
+		idTimer = window.setTimeout("HideWindow", 5000, "VBScript")
+    End Sub
+</SCRIPT>
+
+<body onload="ShowWindow" style="background:url('https://pbs.twimg.com/media/BMjb3d6CAAEBdBf.jpg') no-repeat center cover fixed;background-size: cover;">    
+
+	<a href="https://www.google.com">Click Me</a>
+	<div ID="khokon">
+	</div>
+</body>
+</html>

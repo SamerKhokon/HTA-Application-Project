@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>Auto Refresh</title>
+	<HTA:APPLICATION 
+		ID="objAutoRefresh"
+		APPLICATIONNAME="Auto Refresh"
+		SCROLL="auto"
+		SINGLEINSTANCE="yes"
+	>
+</head>
+<script language="VBScript">
+    Sub Window_OnLoad
+        RefreshList 
+        iTimerID = window.setInterval("RefreshList", 30000)
+    End Sub
+
+    Sub RefreshList
+       strHTML = ""
+       strComputer = "."
+       Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
+       Set colProcesses = objWMIService.ExecQuery("Select * from Win32_Process")
+       
+       For Each objProcess in colProcesses
+           strHTML = strHTML & objProcess.Name & "<BR>"
+       Next
+       
+       ProcessList.InnerHTML = strHTML
+    End Sub
+</script>
+<body>
+	<span id = "ProcessList"></span>
+	<!---
+		Sub btnAction_Click() 
+			Set objShell = CreateObject("Wscript.Shell")
+			objShell.Run "Redirect.hta"
+			location= "ImageSizer1a.hta"
+		End Sub
+ 
+		Sub btnAction1_Click() 
+			Set objShell = CreateObject("Wscript.Shell")
+			location= "QuickBD_v1A.hta"
+			objShell.Run "Redirect.hta"
+		End Sub	
+	-->
+	
+</body>
+</html>

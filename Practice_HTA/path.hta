@@ -1,0 +1,20 @@
+<HTML> 
+  <HEAD> 
+    <SCRIPT language="JavaScript">
+      function WriteFile() {
+        var fso  = new ActiveXObject("Scripting.FileSystemObject"); 
+        var fh = fso.CreateTextFile("c:\\Output.txt", true); 
+        fh.WriteLine(myForm.FN.value + '~' + myForm.LN.value);
+        fh.Close(); 
+      }
+    </SCRIPT>
+  </HEAD>
+  <BODY>
+    <FORM name="myForm">
+      <P>First Name: <INPUT name="FN" type="text"></P>
+      <P>Last Name: <INPUT name="LN" type="text"></P>
+      <P><INPUT type="button" value="Save Values" onclick="WriteFile();"></P>
+    </FORM>
+    <P>After you click 'save', close the window.</P>
+  </BODY>
+</HTML>

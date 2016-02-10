@@ -1,0 +1,20 @@
+<html> <!-- RestartTest.hta -->
+<head>
+<title>Self Restarting HTA Test</title>
+
+<script language="VBScript">
+sub RunApp(sApp)
+  CreateObject("WScript.Shell").Run(sApp)
+end sub
+sub LogOff()
+  RunApp "cscript.exe RestartHTA.vbs"
+  MsgBox "simulating delayed exit - click to close"
+  window.close()
+end sub
+</script>
+</head>
+
+<body >
+<input type="button" value="Log off" onClick="LogOff()" />
+</body>
+</html>

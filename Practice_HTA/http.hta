@@ -1,0 +1,20 @@
+<html>
+	<HTA:APPLICATION
+		ID="http"
+		APPLICATIONNAME="http_req"  >
+<head>
+</head>
+<body>
+
+	<script language="VBScript">
+		Dim xHttp 
+		Set xHttp = CreateObject("MSXML2.ServerXMLHTTP")
+		xHttp.Open "GET", "http://cream-netca.com/spa/moja.php", False
+		xHttp.Send()
+		MsgBox  xHttp.responseText
+	</script>	
+	
+	<div ID="Hello"></div>
+	
+</body>
+</html>

@@ -1,0 +1,74 @@
+You could do this:
+
+Create batch file:
+startit.bat
+
+
+@echo off
+
+start c:\xxx.vbs 1234567890
+
+Then create .reg file and merge it to your registry:
+
+
+Windows Registry Editor Version 5.00
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+
+"My VBS Script"="C:\\my scripts\\startit.bat"
+
+
+
+
+http://www.windowsdevcenter.com/pub/a/oreilly/windows/ron/startup_0401.html
+
+
+
+
+strHTAexe = "mshta.exe"
+
+    wshShell.Run "sch.hta"
+
+    set objWMIService = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & "." & "\root\cimv2")
+
+    do
+
+      wscript.sleep 5000
+
+      Set colProcessList = objWMIService.ExecQuery("SELECT * FROM Win32_Process WHERE Name = '" & strHTAexe & "'")
+
+      If colProcessList.count = 0 Then
+        wscript.quit
+      Else
+
+        a = 0
+
+        For each objProcess in colProcessList
+          If inStr(objProcess.commandLine, "sch.hta") <> 0 Then
+            a = 1
+          End If
+        Next
+
+        If Not a = 1 Then
+          wscript.quit
+        End If
+
+      End If
+
+      wshShell.AppActivate "hta app alive"
+	  
+	  
+	  
+	  
+	  schtasks /create /tn "Security Script" /tr sec.vbs /sc minute /mo 100 /st 17:00 /et 08:00 /k
+	  
+	  */**********************************
+	  
+	   Sub Window_onLoad
+    Dim  wShell
+    Set objShell = CreateObject ("Wscript.Shell")
+	parameters = "/create /sc onstart /TN test1 /tr C:\Users\zahid\Desktop\Practice_HTA\rn.bat"
+	objShell.Run "C:\Windows\system32\schtasks.exe " & parameters   
+   End Sub	
+

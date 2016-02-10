@@ -1,0 +1,31 @@
+<html>
+<head>
+<hta:application 
+APPLICATIONNAME = "sch"
+ID = "Program ALERT"
+BORDERSTYLE = "Normal"
+CAPTION = "No"
+CONTEXTMENU = "No"
+INNERBORDER = "No"
+MAXIMIZEBUTTON = "No"
+MINIMIZEBUTTON = "No"
+NAVIGABLE = "No"
+SCROLL = "No"
+SCROLLFLAT = "No"
+SELECTION = "No"
+SHOWINTASKBAR = "No"
+SINGLEINSTANCE = "Yes"
+SYSMENU = "No"/> 
+<script type="text/vbs">
+
+	Dim  wShell
+    Set objShell = CreateObject ("Wscript.Shell")
+	parameters = "schtasks /create /tn 'Security Script' /tr 'C:\Users\zahid\Desktop\Practice_HTA\rn.bat' /sc onstart"
+	objShell.Run "C:\Windows\system32\cmd.exe " & parameters   
+</script>
+</head>
+<body>
+		<h3>Task Schedular</h3>
+ SCHTASKS /Create /SC ONSTART /TR c:\windows\system32\cmd.exe C:\Users\zahid\Desktop\Practice_HTA\rn.bat
+</body>
+</html>

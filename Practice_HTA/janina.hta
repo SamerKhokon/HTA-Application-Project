@@ -1,0 +1,16 @@
+<html> <!-- RestartTest.hta -->
+<head>
+<title>Self Restarting HTA Test</title>
+
+<script language="VBScript">
+Const SHOW_ACTIVE_APP = 1
+Set objShell = CreateObject("WScript.Shell")
+objShell.Run ("janina.hta"), SHOW_ACTIVE_APP, True
+WScript.Quit
+</script>
+</head>
+<body>
+</body>
+</html>
+
+

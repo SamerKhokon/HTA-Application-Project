@@ -1,1 +1,20 @@
 i love you git
+
+
+
+
+git clone github project url for making clone to local machine
+git status
+git add single filename or * for all
+git commit -m "your text"
+git push -u origin master then wants to username and password then push to github remote
+git log
+
+
+
+git log for local log
+git log --oneline for online log
+
+
+git revert HEAD
+git revert -m "your commit text"
